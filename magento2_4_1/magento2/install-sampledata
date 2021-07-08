@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+if [ -f $INSTALL_DIR/var/composer_home/auth.json ]; then
+    rm $INSTALL_DIR/var/composer_home/auth.json
+    ln -s $COMPOSER_HOME/auth.json $INSTALL_DIR/var/composer_home/
+fi
+if [ ! -f $INSTALL_DIR/var/composer_home/auth.json ]; then
+    ln -s $COMPOSER_HOME/auth.json $INSTALL_DIR/var/composer_home/
+fi
+
+chown -R :www-data ./composer.json
+
+su www-data <<EOSU
+
+php -d memory_limit=-1 bin/magento sampledata:deploy
+
+EOSU

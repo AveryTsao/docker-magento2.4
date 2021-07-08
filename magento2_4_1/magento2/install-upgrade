@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+if [ -f $COMPOSER_HOME/composer.json ]; then
+    rm $COMPOSER_HOME/composer.json
+    ln -s $INSTALL_DIR/composer.json $COMPOSER_HOME/
+fi
+if [ ! -f $COMPOSER_HOME/composer.json ]; then
+    ln -s $INSTALL_DIR/composer.json $COMPOSER_HOME/
+fi
+
+chown -R :www-data $COMPOSER_HOME/composer.json
+
+su www-data <<EOSU
+
+sed -i '/magento\/composer-root-update-plugin/d' $INSTALL_DIR/composer.json
+
+$INSTALL_DIR/bin/magento setup:upgrade
+
+EOSU

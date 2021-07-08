@@ -1,0 +1,73 @@
+version: '3.3'
+
+services:
+  mysql:
+    image: mariadb:10.4.20
+    restart: always
+    networks:
+        - database
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+        - mysql:/var/lib/mysql
+        - mysql-data:/home/data
+    env_file:
+      - .env
+  mailhog:
+    image: mailhog/mailhog
+    restart: always
+    networks:
+        - wwwserver
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    depends_on:
+      - magento2
+  magento2:
+    #build: ./magento2
+    image: averytsaowork/magento:2.4.1
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+        - database
+        - wwwserver
+    depends_on:
+      - mysql
+    volumes:
+      - magento2-data:/var/www/html
+    env_file:
+      - .env
+  elasticsearch:
+    #build: ./elasticsearch
+    image: averytsaowork/elasticsearch:7.7.1
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    networks:
+        - wwwserver
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    depends_on:
+      - magento2
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    networks:
+        - database
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+networks:
+    database:
+    wwwserver:
+
+volumes:
+  magento2-data:
+  mysql-data:
+  mysql:
