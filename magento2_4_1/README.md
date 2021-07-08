@@ -48,7 +48,7 @@
 # Note (default .env)
 ### magento home page : http://127.0.0.1
 ### magento admin page : http://127.0.0.1/admin
-  　　Username : admin / Password : magento2
+  　　Username : admin / Password : magento2  
 ### mail : http://127.0.0.1:8025
   　　can accept magento admin auth mail when login magento admin page
 ### PhpMyAdmin : http://127.0.0.1:8080
