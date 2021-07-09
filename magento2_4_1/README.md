@@ -16,7 +16,7 @@
 ### 1.install docker ( https://www.docker.com/ )
 ### 2.download this folder
 ### 3.you can edit config or not
-* ./.env  
+* ./env  
   　　Environment Variables  
 * ./magento2/auth.json  
   　　use mine key or yoursalf , see https://devdocs.magento.com/guides/v2.4/install-gde/prereq/connect-auth.html  
