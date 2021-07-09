@@ -12,7 +12,7 @@ services:
         - mysql:/var/lib/mysql
         - mysql-data:/home/data
     env_file:
-      - .env
+      - env
   mailhog:
     image: mailhog/mailhog
     restart: always
@@ -38,7 +38,7 @@ services:
     volumes:
       - magento2-data:/var/www/html
     env_file:
-      - .env
+      - env
   elasticsearch:
     #build: ./elasticsearch
     image: averytsaowork/elasticsearch:7.7.1
