@@ -50,7 +50,7 @@
 ### magento admin page : http://127.0.0.1/admin
   　　Username : admin / Password : magento2  
 ### mail : http://127.0.0.1:8025
-  　　can accept magento admin auth mail when login magento admin page
+  　　can accept email from magento
 ### PhpMyAdmin : http://127.0.0.1:8080
   　　Username : root / Password : magento  
   
